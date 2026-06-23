@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from src.db import get_database
+from src.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 def build_school_performance_mart() -> None:
@@ -486,7 +489,7 @@ def build_all_marts() -> dict[str, object]:
     build_regional_summary_mart()
     build_term2_overview_mart()
     build_data_quality_mart()
-    print("Built dashboard mart collections")
+    logger.info("Built dashboard mart collections")
     mart_collections = [
         "mart_school_performance",
         "mart_regional_summary",

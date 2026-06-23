@@ -13,6 +13,9 @@ from src.pipeline_logging import PipelineRunTracker, latest_pipeline_run, utc_no
 from src.transformations.build_marts import build_all_marts
 from src.transformations.contract_tests import validate_mart_contracts
 from src.validation.build_clean_collections import build_clean_collections
+from src.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 StepFunction = Callable[[], dict[str, Any] | None]
@@ -33,15 +36,18 @@ def execute_step(
     name: str,
     step_function: StepFunction,
 ) -> dict[str, Any]:
+    logger.info(f"Starting step: {name}")
     started_at = utc_now()
     try:
         result = step_function() or {}
     except Exception as exc:
         finished_at = utc_now()
         tracker.record_step(name, "failed", started_at, finished_at, {}, str(exc))
+        logger.error(f"Step {name} failed: {exc}")
         raise
     finished_at = utc_now()
     tracker.record_step(name, "success", started_at, finished_at, result)
+    logger.info(f"Finished step: {name}")
     return result
 
 
@@ -67,6 +73,7 @@ def summarize_run(step_results: dict[str, dict[str, Any]]) -> dict[str, Any]:
 
 
 def run_all() -> dict[str, Any]:
+    logger.info("Starting full pipeline run")
     tracker = PipelineRunTracker()
     run_id = tracker.start()
     step_results: dict[str, dict[str, Any]] = {}
@@ -88,10 +95,12 @@ def run_all() -> dict[str, Any]:
     except Exception as exc:
         metrics = summarize_run(step_results)
         tracker.finish("failed", metrics=metrics, error_message=str(exc))
+        logger.error(f"Pipeline run failed: {exc}")
         raise
 
     metrics = summarize_run(step_results)
     tracker.finish("success", metrics=metrics)
+    logger.info(f"Pipeline run completed successfully. Run ID: {run_id}")
     return {"run_id": run_id, "status": "success", "metrics": metrics, "steps": step_results}
 
 

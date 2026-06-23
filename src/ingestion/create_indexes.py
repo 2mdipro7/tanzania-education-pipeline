@@ -3,6 +3,9 @@ from __future__ import annotations
 from pymongo import ASCENDING, GEOSPHERE
 
 from src.db import get_database
+from src.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 def create_indexes() -> None:
@@ -78,7 +81,7 @@ def create_indexes() -> None:
         ],
         unique=True,
     )
-    print("Indexes created")
+    logger.info("Indexes created")
 
 
 if __name__ == "__main__":

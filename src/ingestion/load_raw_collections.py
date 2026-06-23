@@ -5,8 +5,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from pymongo import UpdateOne
+
 from src.config import DATA_DIR
 from src.db import get_database
+from src.ingestion.record_hash import compute_record_hash
+from src.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 RAW_COLLECTIONS = {
@@ -26,6 +32,23 @@ RAW_COLLECTIONS = {
     "interventions.json": "raw_interventions",
 }
 
+RAW_PRIMARY_KEYS = {
+    "raw_schools": "school_id",
+    "raw_facilitators": "facilitator_id",
+    "raw_data_collectors": "collector_id",
+    "raw_field_devices": "device_id",
+    "raw_curriculum_modules": "module_id",
+    "raw_students": "student_id",
+    "raw_sessions": "session_id",
+    "raw_attendance": "attendance_id",
+    "raw_assessments": "assessment_id",
+    "raw_facilitator_visits": "visit_id",
+    "raw_student_surveys": "survey_id",
+    "raw_program_targets": "target_id",
+    "raw_source_uploads": "source_upload_id",
+    "raw_interventions": "intervention_id",
+}
+
 
 def read_json(path: Path) -> list[dict[str, Any]]:
     with path.open("r", encoding="utf-8") as file:
@@ -41,6 +64,9 @@ def load_raw_collections(run_id: str | None = None) -> dict[str, Any]:
         "batch_id": batch_id,
         "sources": {},
         "total_loaded_records": 0,
+        "total_inserted": 0,
+        "total_updated": 0,
+        "total_unchanged": 0,
     }
 
     for filename, collection_name in RAW_COLLECTIONS.items():
@@ -49,19 +75,53 @@ def load_raw_collections(run_id: str | None = None) -> dict[str, Any]:
             raise FileNotFoundError(f"Missing generated file: {path}")
 
         rows = read_json(path)
-        documents = [
-            {
-                **row,
-                "_batch_id": batch_id,
-                "_source_file": filename,
-                "_ingested_at": ingested_at,
-            }
-            for row in rows
-        ]
         collection = db[collection_name]
-        collection.delete_many({})
-        if documents:
-            collection.insert_many(documents)
+        pk_field = RAW_PRIMARY_KEYS[collection_name]
+
+        existing_records = {
+            doc.get(pk_field): doc.get("_record_hash")
+            for doc in collection.find({}, {pk_field: 1, "_record_hash": 1})
+            if pk_field in doc
+        }
+
+        operations = []
+        stats = {"inserted": 0, "updated": 0, "unchanged": 0}
+
+        for row in rows:
+            record_hash = compute_record_hash(row)
+            pk_val = row.get(pk_field)
+
+            if pk_val in existing_records:
+                if existing_records[pk_val] == record_hash:
+                    stats["unchanged"] += 1
+                    continue
+                else:
+                    stats["updated"] += 1
+                    doc = {
+                        **row,
+                        "_batch_id": batch_id,
+                        "_source_file": filename,
+                        "_record_hash": record_hash,
+                        "_run_id": run_id,
+                        "_updated_at": ingested_at,
+                    }
+                    operations.append(UpdateOne({pk_field: pk_val}, {"$set": doc}))
+            else:
+                stats["inserted"] += 1
+                doc = {
+                    **row,
+                    "_batch_id": batch_id,
+                    "_source_file": filename,
+                    "_record_hash": record_hash,
+                    "_run_id": run_id,
+                    "_ingested_at": ingested_at,
+                    "_updated_at": ingested_at,
+                }
+                operations.append(UpdateOne({pk_field: pk_val}, {"$set": doc}, upsert=True))
+
+        if operations:
+            collection.bulk_write(operations)
+
         source_name = collection_name.replace("raw_", "")
         db.raw_upload_batches.insert_one(
             {
@@ -72,16 +132,27 @@ def load_raw_collections(run_id: str | None = None) -> dict[str, Any]:
                 "raw_collection": collection_name,
                 "source_path": str(path),
                 "expected_records": len(rows),
-                "loaded_records": len(documents),
+                "loaded_records": len(rows),
+                "inserted_records": stats["inserted"],
+                "updated_records": stats["updated"],
+                "unchanged_records": stats["unchanged"],
                 "invalid_records": 0,
                 "duplicate_records": 0,
                 "ingested_at": ingested_at,
                 "pipeline_status": "Loaded",
             }
         )
-        load_stats["sources"][collection_name] = len(documents)
-        load_stats["total_loaded_records"] += len(documents)
-        print(f"Loaded {len(documents)} documents into {collection_name}")
+        load_stats["sources"][collection_name] = stats
+        load_stats["total_loaded_records"] += len(rows)
+        load_stats["total_inserted"] += stats["inserted"]
+        load_stats["total_updated"] += stats["updated"]
+        load_stats["total_unchanged"] += stats["unchanged"]
+        
+        logger.info(
+            f"Loaded {collection_name}: {stats['inserted']} inserted, "
+            f"{stats['updated']} updated, {stats['unchanged']} unchanged"
+        )
+
     return load_stats
 
 
