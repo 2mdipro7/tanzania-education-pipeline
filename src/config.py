@@ -18,14 +18,26 @@ class Settings:
     data_seed: int
 
 
+def _get_streamlit_secret(key: str) -> str | None:
+    """Read a secret from Streamlit's secrets store if running on Streamlit Cloud."""
+    try:
+        import streamlit as st  # noqa: PLC0415
+        return st.secrets.get(key)
+    except Exception:
+        return None
+
+
 def get_settings() -> Settings:
     load_dotenv(BASE_DIR / ".env")
     return Settings(
-        mongo_uri=os.getenv(
-            "MONGO_URI",
-            "mongodb://admin:adminpassword@localhost:27017/?authSource=admin",
+        mongo_uri=(
+            _get_streamlit_secret("MONGO_URI")
+            or os.getenv("MONGO_URI", "mongodb://admin:adminpassword@localhost:27017/?authSource=admin")
         ),
-        mongo_db_name=os.getenv("MONGO_DB_NAME", "mewaka_program_metrics"),
+        mongo_db_name=(
+            _get_streamlit_secret("MONGO_DB_NAME")
+            or os.getenv("MONGO_DB_NAME", "mewaka_program_metrics")
+        ),
         data_seed=int(os.getenv("DATA_SEED", "42")),
     )
 
