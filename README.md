@@ -31,36 +31,20 @@ I built a layered ETL pipeline that treats data quality as a first-class concern
 
 ```mermaid
 flowchart TD
-    subgraph Source
-        A[Synthetic Field Data]
-    end
-    
-    subgraph Ingestion
-        B[(Raw MongoDB Collections)]
-    end
-    
-    subgraph Quality
-        C{Modular Validator Engine}
-        D[Quarantine Collections]
-    end
-    
-    subgraph Analytics
-        E[(Clean Collections)]
-        F[(Mart Collections)]
-    end
-    
-    subgraph Serving
-        G[Streamlit Dashboard]
-        H[Contract Tests]
-    end
+    A([Synthetic Field Data]) -->|Idempotent Upsert| B[(Raw MongoDB)]
+    B -->|Validation Rules| C{Validator Engine}
+    C -->|Invalid| D[Quarantine]
+    C -->|Valid| E[(Clean MongoDB)]
+    E -->|Aggregations| F[(Mart Collections)]
+    F --> G[Streamlit Dashboard]
+    F --> H[Contract Tests]
 
-    A -->|Idempotent Upsert| B
-    B -->|Validation Rules| C
-    C -->|Invalid| D
-    C -->|Valid| E
-    E -->|Aggregations| F
-    F --> G
-    F --> H
+    style A fill:#2ecc71,stroke:#27ae60,stroke-width:2px,color:#fff
+    style C fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
+    style D fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+    style B fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+    style E fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+    style F fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
 ```
 
 Every pipeline run is fully **idempotent**: re-running it on the same data detects unchanged records and skips them, updates modified ones, and only inserts genuinely new records. The dashboard includes a **Pipeline Monitor** page that exposes exactly what happened in each run - records inserted vs. updated vs. unchanged, step durations, quality issues caught, and contract results.
