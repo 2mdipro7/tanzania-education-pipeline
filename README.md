@@ -1,10 +1,10 @@
-# 🌍 Mewaka Program Metrics — End-to-End Education Data Pipeline
+# 🌍 Mewaka Program Metrics - End-to-End Education Data Pipeline
 
-[![View Live Dashboard](https://img.shields.io/badge/View_Live_Dashboard-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://tanzania-education-pipeline-vmpnvhngvqdisvuz3kcc9d.streamlit.app/)
+<a href="https://tanzania-education-pipeline-vmpnvhngvqdisvuz3kcc9d.streamlit.app/" target="_blank"><img src="https://img.shields.io/badge/View_Live_Dashboard-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="View Live Dashboard"/></a>
 
 > **Status:** Live | Pipeline Passing | 0 Contract Failures
 
-A production-grade data engineering pipeline built for a fictional education program in Tanzania. This project simulates the full operational data stack of an NGO — from raw field data collection through to a live analytics dashboard — showcasing MongoDB data architecture, idempotent ETL design, modular validation, and real-time observability.
+A production-grade data engineering pipeline built for a fictional education program in Tanzania. This project simulates the full operational data stack of an NGO - from raw field data collection through to a live analytics dashboard - showcasing MongoDB data architecture, idempotent ETL design, modular validation, and real-time observability.
 
 ## 📌 Project Description
 
@@ -27,7 +27,7 @@ The result: program managers make decisions on data they can't fully trust.
 
 ## 2. The Solution I Built
 
-I built a layered ETL pipeline that treats data quality as a first-class concern at every stage — not an afterthought.
+I built a layered ETL pipeline that treats data quality as a first-class concern at every stage - not an afterthought.
 
 ```mermaid
 flowchart TD
@@ -35,21 +35,21 @@ flowchart TD
         A[Synthetic Field Data]
     end
     
-    subgraph Ingestion Layer
+    subgraph Ingestion
         B[(Raw MongoDB Collections)]
     end
     
-    subgraph Quality Layer
+    subgraph Quality
         C{Modular Validator Engine}
         D[Quarantine Collections]
     end
     
-    subgraph Analytics Layer
+    subgraph Analytics
         E[(Clean Collections)]
         F[(Mart Collections)]
     end
     
-    subgraph Serving Layer
+    subgraph Serving
         G[Streamlit Dashboard]
         H[Contract Tests]
     end
@@ -63,7 +63,7 @@ flowchart TD
     F --> H
 ```
 
-Every pipeline run is fully **idempotent**: re-running it on the same data detects unchanged records and skips them, updates modified ones, and only inserts genuinely new records. The dashboard includes a **Pipeline Monitor** page that exposes exactly what happened in each run — records inserted vs. updated vs. unchanged, step durations, quality issues caught, and contract results.
+Every pipeline run is fully **idempotent**: re-running it on the same data detects unchanged records and skips them, updates modified ones, and only inserts genuinely new records. The dashboard includes a **Pipeline Monitor** page that exposes exactly what happened in each run - records inserted vs. updated vs. unchanged, step durations, quality issues caught, and contract results.
 
 ## 3. Technical Architecture
 
@@ -93,18 +93,18 @@ Rather than a single monolithic validation script, I built a **`src/validation/v
 
 ```text
 validators/
-  schools.py       — ID format, required fields, geolocation bounds (Tanzania lat/lon)
-  students.py      — School FK check, enrollment date, dropout logic, gender normalization
-  sessions.py      — Module/facilitator FK checks, date ordering
-  attendance.py    — Student/session FK checks, duplicate (student, session) detection
-  assessments.py   — Score range validation, assessment type constraints
-  facilitators.py  — ID format, contract field extraction
-  common.py        — Collectors, devices, modules, visits, surveys, targets, uploads
+  schools.py       - ID format, required fields, geolocation bounds (Tanzania lat/lon)
+  students.py      - School FK check, enrollment date, dropout logic, gender normalization
+  sessions.py      - Module/facilitator FK checks, date ordering
+  attendance.py    - Student/session FK checks, duplicate (student, session) detection
+  assessments.py   - Score range validation, assessment type constraints
+  facilitators.py  - ID format, contract field extraction
+  common.py        - Collectors, devices, modules, visits, surveys, targets, uploads
 ```
 
 A shared `ValidatorContext` dataclass carries resolved entity ID sets across validators so that downstream entities (e.g. attendance) can reference upstream validated sets (e.g. `student_ids`) without re-querying MongoDB.
 
-Invalid records are **quarantined** with their full raw payload, issue type, severity, and batch context — not silently dropped.
+Invalid records are **quarantined** with their full raw payload, issue type, severity, and batch context - not silently dropped.
 
 ### 3.4 Data Quality Checks
 
@@ -168,7 +168,7 @@ The Streamlit dashboard provides six analytical views:
 
 ## 5. Synthetic Data Design
 
-The data generator produces realistic field-program data — not toy examples. Key simulation patterns include:
+The data generator produces realistic field-program data - not toy examples. Key simulation patterns include:
 
 - **Tanzania geography**: 36 schools across 9 regions with real district names, street addresses, and bounding-box-validated coordinates
 - **Infrastructure modeling**: Schools have electricity, internet, projector, library, and water access fields that correlate with performance outcomes
