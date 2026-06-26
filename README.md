@@ -1,11 +1,10 @@
 # 🌍 Mewaka Program Metrics — End-to-End Education Data Pipeline
 
-🔗 **[View Live Dashboard →](https://tanzania-education-pipeline-vmpnvhngvqdisvuz3kcc9d.streamlit.app)**
+[![View Live Dashboard](https://img.shields.io/badge/View_Live_Dashboard-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://tanzania-education-pipeline-vmpnvhngvqdisvuz3kcc9d.streamlit.app/)
 
 > **Status:** Live | Pipeline Passing | 0 Contract Failures
 
 A production-grade data engineering pipeline built for a fictional education program in Tanzania. This project simulates the full operational data stack of an NGO — from raw field data collection through to a live analytics dashboard — showcasing MongoDB data architecture, idempotent ETL design, modular validation, and real-time observability.
-
 
 ## 📌 Project Description
 
@@ -14,7 +13,6 @@ This is a complete, end-to-end data engineering portfolio project built around a
 I designed and built a Python + MongoDB ETL pipeline that ingests synthetic field data (schools, students, attendance, assessments, facilitator visits), validates and cleans it through a modular quality layer, builds analytics-ready mart tables, and surfaces everything through an interactive Streamlit dashboard.
 
 The pipeline processes **12,246 records across 14 entity types**, runs **58 contract checks** on every execution, and catches and quarantines data quality issues automatically — with zero failures in the latest run.
-
 
 ## 1. The Problem
 
@@ -26,7 +24,6 @@ Education NGOs operating at scale face a data trust problem. Field staff collect
 - Whether the pipeline ran cleanly this week or silently dropped records
 
 The result: program managers make decisions on data they can't fully trust.
-
 
 ## 2. The Solution I Built
 
@@ -67,7 +64,6 @@ flowchart TD
 ```
 
 Every pipeline run is fully **idempotent**: re-running it on the same data detects unchanged records and skips them, updates modified ones, and only inserts genuinely new records. The dashboard includes a **Pipeline Monitor** page that exposes exactly what happened in each run — records inserted vs. updated vs. unchanged, step durations, quality issues caught, and contract results.
-
 
 ## 3. Technical Architecture
 
@@ -156,7 +152,6 @@ Before the pipeline marks itself as successful, it runs **58 automated contract 
 - Rate fields fall within `[0, 1]`
 - GeoJSON `location` fields conform to the correct Point schema
 
-
 ## 4. Dashboard
 
 The Streamlit dashboard provides six analytical views:
@@ -171,7 +166,6 @@ The Streamlit dashboard provides six analytical views:
 | **Data Quality Monitor** | Issue breakdown by collection, severity, and type |
 | **Pipeline Monitor** | Latest run metadata, step durations, batch change statistics |
 
-
 ## 5. Synthetic Data Design
 
 The data generator produces realistic field-program data — not toy examples. Key simulation patterns include:
@@ -182,7 +176,6 @@ The data generator produces realistic field-program data — not toy examples. K
 - **Student lifecycle**: Enrollment, dropout, transfer, and active status with realistic date sequencing
 - **Assessment structure**: Total score plus sub-scores for business skills, financial literacy, communication, and problem solving
 - **Intervention tracking**: Low-attendance flags trigger simulated intervention records with priority, due date, and outcome
-
 
 ## 6. Stack
 
@@ -196,7 +189,6 @@ The data generator produces realistic field-program data — not toy examples. K
 | Testing | Pytest (16 tests) |
 | Infrastructure | Docker Compose |
 | Dependency pinning | `requirements-lock.txt` |
-
 
 ## 7. How to Run
 
@@ -234,7 +226,6 @@ streamlit run src/dashboard/app.py
 
 **Mongo Express UI:** [http://localhost:8081](http://localhost:8081)
 
-
 ## 8. Running Individual Pipeline Steps
 
 ```powershell
@@ -245,7 +236,6 @@ python -m src.pipeline indexes     # Create MongoDB indexes
 python -m src.pipeline transform   # Build mart collections
 python -m src.pipeline contracts   # Run automated contract checks
 ```
-
 
 ## 9. Latest Verified Run
 
@@ -273,7 +263,6 @@ transform:  ~0.7s
 contracts:  ~0.4s
 ```
 
-
 ## 10. Configuration
 
 Copy `.env.example` to `.env` and adjust as needed:
@@ -284,7 +273,6 @@ MONGO_DB=mewaka_program_metrics
 ```
 
 To use MongoDB Atlas, replace `MONGO_URI` with your Atlas connection string. **Do not commit real credentials.**
-
 
 ## 11. Project Structure
 
@@ -334,8 +322,5 @@ tests/
   test_synthetic_generation.py
   test_validation_rules.py
 ```
-
-
-
 
 *Data note: This project uses entirely synthetic data generated with Faker and custom simulation logic. No real student or school records are used. The program, school names, and geography are fictional.*
