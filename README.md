@@ -54,11 +54,11 @@ flowchart TD
         H[Contract Tests]
     end
 
-    A -- Idempotent Upsert --> B
-    B -- Validation Rules --> C
-    C -- Invalid --> D
-    C -- Valid --> E
-    E -- Aggregations --> F
+    A -->|Idempotent Upsert| B
+    B -->|Validation Rules| C
+    C -->|Invalid| D
+    C -->|Valid| E
+    E -->|Aggregations| F
     F --> G
     F --> H
 ```
