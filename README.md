@@ -325,11 +325,11 @@ tests/
 
 ## 12. Live Dashboard
 
-The dashboard is deployed on Streamlit Community Cloud and connects to a hosted MongoDB Atlas instance with pre-loaded sample data.
+The dashboard is deployed on Streamlit Community Cloud with pre-exported pipeline data — no database connection required.
 
-🔗 **[View Live Dashboard →](https://mewaka-metrics.streamlit.app)**
+🔗 **[View Live Dashboard →](https://tanzania-education-pipeline-vmpnvhngvqdisvuz3kcc9d.streamlit.app)**
 
-> *Note: The live version uses a read-only Atlas cluster seeded with one full pipeline run. Local deployment supports full pipeline re-execution.*
+> *The live version uses static data snapshots from the latest successful pipeline run. For local development with a live MongoDB connection, see section 7.*
 
 ---
 
