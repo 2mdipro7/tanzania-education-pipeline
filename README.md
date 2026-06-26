@@ -4,6 +4,10 @@
 
 > **Status:** Live | Pipeline Passing | 0 Contract Failures
 
+<p align="center">
+  <img src="screenshots/chatgpt_banner.png" alt="Project Banner" width="100%">
+</p>
+
 A production-grade data engineering pipeline built for a fictional education program in Tanzania. This project simulates the full operational data stack of an NGO - from raw field data collection through to a live analytics dashboard - showcasing MongoDB data architecture, idempotent ETL design, modular validation, and real-time observability.
 
 ## 📌 Project Description
@@ -149,6 +153,17 @@ The Streamlit dashboard provides six analytical views:
 | **Assessment Outcomes** | Score distributions by gender and assessment type |
 | **Data Quality Monitor** | Issue breakdown by collection, severity, and type |
 | **Pipeline Monitor** | Latest run metadata, step durations, batch change statistics |
+
+### Visual Gallery
+
+<div align="center">
+  <img src="screenshots/Screenshot_1.png" width="49%">
+  <img src="screenshots/Screenshot_2.png" width="49%">
+  <img src="screenshots/Screenshot_3.png" width="49%">
+  <img src="screenshots/Screenshot_4.png" width="49%">
+  <img src="screenshots/Screenshot_5.png" width="49%">
+  <img src="screenshots/Screenshot_6.png" width="49%">
+</div>
 
 ## 5. Synthetic Data Design
 
