@@ -1,0 +1,19 @@
+[
+  {
+    "schools": 36,
+    "active_students": 1126,
+    "high_risk_students": 230,
+    "open_interventions": 45,
+    "at_risk_schools": 30,
+    "data_quality_issues": 13,
+    "term": "Term 2",
+    "avg_attendance_rate": 0.742,
+    "avg_session_delivery_rate": 0.941,
+    "avg_assessment_completion_rate": 0.764,
+    "avg_late_submission_rate": 0.22,
+    "avg_delivery_quality_score": 3.9,
+    "avg_satisfaction_score": 4.28,
+    "avg_distance_to_school_km": 3.48,
+    "avg_facilitator_visit_completion_rate": 0.796
+  }
+]

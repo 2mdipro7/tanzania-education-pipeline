@@ -1,0 +1,68 @@
+[
+  {
+    "issue_count": 2,
+    "collection": "raw_schools",
+    "issue_type": "low_attendance_without_open_intervention",
+    "severity": "high"
+  },
+  {
+    "issue_count": 17,
+    "collection": "raw_source_uploads",
+    "issue_type": "stale_source_data",
+    "severity": "medium"
+  },
+  {
+    "issue_count": 8,
+    "collection": "raw_schools",
+    "issue_type": "low_post_assessment_completion",
+    "severity": "medium"
+  },
+  {
+    "issue_count": 17,
+    "collection": "raw_source_uploads",
+    "issue_type": "source_contains_duplicate_records",
+    "severity": "low"
+  },
+  {
+    "issue_count": 1,
+    "collection": "raw_attendance",
+    "issue_type": "invalid_student_relationship",
+    "severity": "high"
+  },
+  {
+    "issue_count": 1,
+    "collection": "raw_students",
+    "issue_type": "invalid_student_id",
+    "severity": "high"
+  },
+  {
+    "issue_count": 1,
+    "collection": "raw_assessments",
+    "issue_type": "invalid_score",
+    "severity": "high"
+  },
+  {
+    "issue_count": 1,
+    "collection": "raw_attendance",
+    "issue_type": "duplicate_attendance_record",
+    "severity": "medium"
+  },
+  {
+    "issue_count": 15,
+    "collection": "raw_source_uploads",
+    "issue_type": "loaded_records_below_expected",
+    "severity": "medium"
+  },
+  {
+    "issue_count": 16,
+    "collection": "raw_source_uploads",
+    "issue_type": "source_contains_invalid_records",
+    "severity": "medium"
+  },
+  {
+    "issue_count": 1,
+    "collection": "raw_field_devices",
+    "issue_type": "field_device_sync_stale",
+    "severity": "medium"
+  }
+]

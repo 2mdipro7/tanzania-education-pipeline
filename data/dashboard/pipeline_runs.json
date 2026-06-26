@@ -1,0 +1,484 @@
+[
+  {
+    "run_id": "run_20260623_103553_d6ea2bcd",
+    "started_at": "2026-06-23 10:35:53.192000",
+    "finished_at": "2026-06-23 10:35:58.570000",
+    "duration_seconds": 5.378,
+    "status": "success",
+    "steps": [
+      {
+        "name": "generate",
+        "status": "success",
+        "started_at": "2026-06-23 10:35:53.297000",
+        "finished_at": "2026-06-23 10:35:54.177000",
+        "duration_seconds": 0.88,
+        "metrics": {
+          "generated_at": "2026-06-23T10:35:54.172081+00:00",
+          "files": {
+            "schools.json": 36,
+            "facilitators.json": 15,
+            "data_collectors.json": 15,
+            "field_devices.json": 15,
+            "curriculum_modules.json": 8,
+            "students.json": 1261,
+            "sessions.json": 288,
+            "attendance.json": 7776,
+            "assessments.json": 1906,
+            "facilitator_visits.json": 108,
+            "student_surveys.json": 727,
+            "program_targets.json": 14,
+            "source_uploads.json": 17,
+            "interventions.json": 60
+          },
+          "total_records": 12246
+        },
+        "error_message": null
+      },
+      {
+        "name": "load",
+        "status": "success",
+        "started_at": "2026-06-23 10:35:54.191000",
+        "finished_at": "2026-06-23 10:35:55.186000",
+        "duration_seconds": 0.994,
+        "metrics": {
+          "batch_id": "batch_20260623_103554_197748",
+          "sources": {
+            "raw_schools": 36,
+            "raw_facilitators": 15,
+            "raw_data_collectors": 15,
+            "raw_field_devices": 15,
+            "raw_curriculum_modules": 8,
+            "raw_students": 1261,
+            "raw_sessions": 288,
+            "raw_attendance": 7776,
+            "raw_assessments": 1906,
+            "raw_facilitator_visits": 108,
+            "raw_student_surveys": 727,
+            "raw_program_targets": 14,
+            "raw_source_uploads": 17,
+            "raw_interventions": 60
+          },
+          "total_loaded_records": 12246
+        },
+        "error_message": null
+      },
+      {
+        "name": "validate",
+        "status": "success",
+        "started_at": "2026-06-23 10:35:55.188000",
+        "finished_at": "2026-06-23 10:35:57.187000",
+        "duration_seconds": 1.998,
+        "metrics": {
+          "clean_counts": {
+            "schools": 36,
+            "facilitators": 15,
+            "data_collectors": 15,
+            "field_devices": 15,
+            "curriculum_modules": 8,
+            "students": 1260,
+            "sessions": 288,
+            "attendance": 7774,
+            "assessments": 1905,
+            "facilitator_visits": 108,
+            "student_surveys": 727,
+            "program_targets": 14,
+            "source_uploads": 17,
+            "interventions": 60
+          },
+          "quality_issues_found": 4,
+          "quarantine_records": 4
+        },
+        "error_message": null
+      },
+      {
+        "name": "indexes",
+        "status": "success",
+        "started_at": "2026-06-23 10:35:57.190000",
+        "finished_at": "2026-06-23 10:35:57.729000",
+        "duration_seconds": 0.539,
+        "metrics": {
+          "indexes_created": true
+        },
+        "error_message": null
+      },
+      {
+        "name": "transform",
+        "status": "success",
+        "started_at": "2026-06-23 10:35:57.737000",
+        "finished_at": "2026-06-23 10:35:58.565000",
+        "duration_seconds": 0.828,
+        "metrics": {
+          "mart_counts": {
+            "mart_school_performance": 36,
+            "mart_regional_summary": 14,
+            "mart_term2_overview": 1,
+            "mart_data_quality": 4
+          },
+          "marts_built": 4
+        },
+        "error_message": null
+      }
+    ],
+    "metrics": {
+      "records_generated": 12246,
+      "records_loaded": 12246,
+      "clean_records": 12242,
+      "quality_issues_found": 4,
+      "quarantine_records": 4,
+      "marts_built": 4,
+      "mart_rows": 55
+    },
+    "error_message": null
+  },
+  {
+    "run_id": "run_20260623_104020_42482bde",
+    "started_at": "2026-06-23 10:40:20.652000",
+    "finished_at": "2026-06-23 10:40:27.224000",
+    "duration_seconds": 6.572,
+    "status": "success",
+    "steps": [
+      {
+        "name": "generate",
+        "status": "success",
+        "started_at": "2026-06-23 10:40:20.701000",
+        "finished_at": "2026-06-23 10:40:21.676000",
+        "duration_seconds": 0.975,
+        "metrics": {
+          "generated_at": "2026-06-23T10:40:21.670936+00:00",
+          "files": {
+            "schools.json": 36,
+            "facilitators.json": 15,
+            "data_collectors.json": 15,
+            "field_devices.json": 15,
+            "curriculum_modules.json": 8,
+            "students.json": 1261,
+            "sessions.json": 288,
+            "attendance.json": 7776,
+            "assessments.json": 1906,
+            "facilitator_visits.json": 108,
+            "student_surveys.json": 727,
+            "program_targets.json": 14,
+            "source_uploads.json": 17,
+            "interventions.json": 60
+          },
+          "total_records": 12246
+        },
+        "error_message": null
+      },
+      {
+        "name": "load",
+        "status": "success",
+        "started_at": "2026-06-23 10:40:21.683000",
+        "finished_at": "2026-06-23 10:40:22.517000",
+        "duration_seconds": 0.834,
+        "metrics": {
+          "batch_id": "batch_20260623_104021_687593",
+          "sources": {
+            "raw_schools": 36,
+            "raw_facilitators": 15,
+            "raw_data_collectors": 15,
+            "raw_field_devices": 15,
+            "raw_curriculum_modules": 8,
+            "raw_students": 1261,
+            "raw_sessions": 288,
+            "raw_attendance": 7776,
+            "raw_assessments": 1906,
+            "raw_facilitator_visits": 108,
+            "raw_student_surveys": 727,
+            "raw_program_targets": 14,
+            "raw_source_uploads": 17,
+            "raw_interventions": 60
+          },
+          "total_loaded_records": 12246
+        },
+        "error_message": null
+      },
+      {
+        "name": "validate",
+        "status": "success",
+        "started_at": "2026-06-23 10:40:22.520000",
+        "finished_at": "2026-06-23 10:40:25.682000",
+        "duration_seconds": 3.162,
+        "metrics": {
+          "clean_counts": {
+            "schools": 36,
+            "facilitators": 15,
+            "data_collectors": 15,
+            "field_devices": 15,
+            "curriculum_modules": 8,
+            "students": 1260,
+            "sessions": 288,
+            "attendance": 7774,
+            "assessments": 1905,
+            "facilitator_visits": 108,
+            "student_surveys": 727,
+            "program_targets": 14,
+            "source_uploads": 17,
+            "interventions": 60
+          },
+          "quality_issues_found": 80,
+          "quarantine_records": 80
+        },
+        "error_message": null
+      },
+      {
+        "name": "indexes",
+        "status": "success",
+        "started_at": "2026-06-23 10:40:25.686000",
+        "finished_at": "2026-06-23 10:40:26.053000",
+        "duration_seconds": 0.367,
+        "metrics": {
+          "indexes_created": true
+        },
+        "error_message": null
+      },
+      {
+        "name": "transform",
+        "status": "success",
+        "started_at": "2026-06-23 10:40:26.057000",
+        "finished_at": "2026-06-23 10:40:26.802000",
+        "duration_seconds": 0.745,
+        "metrics": {
+          "mart_counts": {
+            "mart_school_performance": 36,
+            "mart_regional_summary": 14,
+            "mart_term2_overview": 1,
+            "mart_data_quality": 11
+          },
+          "marts_built": 4
+        },
+        "error_message": null
+      },
+      {
+        "name": "contracts",
+        "status": "success",
+        "started_at": "2026-06-23 10:40:26.805000",
+        "finished_at": "2026-06-23 10:40:27.221000",
+        "duration_seconds": 0.416,
+        "metrics": {
+          "contract_checks_run": 58,
+          "contract_failures": 0,
+          "errors": []
+        },
+        "error_message": null
+      }
+    ],
+    "metrics": {
+      "records_generated": 12246,
+      "records_loaded": 12246,
+      "clean_records": 12242,
+      "quality_issues_found": 80,
+      "quarantine_records": 80,
+      "marts_built": 4,
+      "mart_rows": 62,
+      "contract_checks_run": 58,
+      "contract_failures": 0
+    },
+    "error_message": null
+  },
+  {
+    "run_id": "run_20260623_130707_475be7d8",
+    "started_at": "2026-06-23 13:07:07.285000",
+    "finished_at": "2026-06-23 13:07:42.177000",
+    "duration_seconds": 34.891,
+    "status": "success",
+    "steps": [
+      {
+        "name": "generate",
+        "status": "success",
+        "started_at": "2026-06-23 13:07:07.342000",
+        "finished_at": "2026-06-23 13:07:08.264000",
+        "duration_seconds": 0.922,
+        "metrics": {
+          "generated_at": "2026-06-23T13:07:08.258915+00:00",
+          "files": {
+            "schools.json": 36,
+            "facilitators.json": 15,
+            "data_collectors.json": 15,
+            "field_devices.json": 15,
+            "curriculum_modules.json": 8,
+            "students.json": 1261,
+            "sessions.json": 288,
+            "attendance.json": 7776,
+            "assessments.json": 1906,
+            "facilitator_visits.json": 108,
+            "student_surveys.json": 727,
+            "program_targets.json": 14,
+            "source_uploads.json": 17,
+            "interventions.json": 60
+          },
+          "total_records": 12246
+        },
+        "error_message": null
+      },
+      {
+        "name": "load",
+        "status": "success",
+        "started_at": "2026-06-23 13:07:08.285000",
+        "finished_at": "2026-06-23 13:07:36.436000",
+        "duration_seconds": 28.151,
+        "metrics": {
+          "batch_id": "batch_20260623_130708_291829",
+          "sources": {
+            "raw_schools": {
+              "inserted": 0,
+              "updated": 36,
+              "unchanged": 0
+            },
+            "raw_facilitators": {
+              "inserted": 0,
+              "updated": 15,
+              "unchanged": 0
+            },
+            "raw_data_collectors": {
+              "inserted": 0,
+              "updated": 15,
+              "unchanged": 0
+            },
+            "raw_field_devices": {
+              "inserted": 0,
+              "updated": 15,
+              "unchanged": 0
+            },
+            "raw_curriculum_modules": {
+              "inserted": 0,
+              "updated": 8,
+              "unchanged": 0
+            },
+            "raw_students": {
+              "inserted": 0,
+              "updated": 1261,
+              "unchanged": 0
+            },
+            "raw_sessions": {
+              "inserted": 0,
+              "updated": 288,
+              "unchanged": 0
+            },
+            "raw_attendance": {
+              "inserted": 0,
+              "updated": 7776,
+              "unchanged": 0
+            },
+            "raw_assessments": {
+              "inserted": 0,
+              "updated": 1906,
+              "unchanged": 0
+            },
+            "raw_facilitator_visits": {
+              "inserted": 0,
+              "updated": 108,
+              "unchanged": 0
+            },
+            "raw_student_surveys": {
+              "inserted": 0,
+              "updated": 727,
+              "unchanged": 0
+            },
+            "raw_program_targets": {
+              "inserted": 0,
+              "updated": 14,
+              "unchanged": 0
+            },
+            "raw_source_uploads": {
+              "inserted": 0,
+              "updated": 17,
+              "unchanged": 0
+            },
+            "raw_interventions": {
+              "inserted": 0,
+              "updated": 60,
+              "unchanged": 0
+            }
+          },
+          "total_loaded_records": 12246,
+          "total_inserted": 0,
+          "total_updated": 12246,
+          "total_unchanged": 0
+        },
+        "error_message": null
+      },
+      {
+        "name": "validate",
+        "status": "success",
+        "started_at": "2026-06-23 13:07:36.441000",
+        "finished_at": "2026-06-23 13:07:40.756000",
+        "duration_seconds": 4.315,
+        "metrics": {
+          "clean_counts": {
+            "schools": 36,
+            "facilitators": 15,
+            "data_collectors": 15,
+            "field_devices": 15,
+            "curriculum_modules": 8,
+            "students": 1260,
+            "sessions": 288,
+            "attendance": 7774,
+            "assessments": 1905,
+            "facilitator_visits": 108,
+            "student_surveys": 727,
+            "program_targets": 14,
+            "source_uploads": 17,
+            "interventions": 60
+          },
+          "quality_issues_found": 80,
+          "quarantine_records": 80
+        },
+        "error_message": null
+      },
+      {
+        "name": "indexes",
+        "status": "success",
+        "started_at": "2026-06-23 13:07:40.761000",
+        "finished_at": "2026-06-23 13:07:41.115000",
+        "duration_seconds": 0.353,
+        "metrics": {
+          "indexes_created": true
+        },
+        "error_message": null
+      },
+      {
+        "name": "transform",
+        "status": "success",
+        "started_at": "2026-06-23 13:07:41.119000",
+        "finished_at": "2026-06-23 13:07:41.863000",
+        "duration_seconds": 0.744,
+        "metrics": {
+          "mart_counts": {
+            "mart_school_performance": 36,
+            "mart_regional_summary": 14,
+            "mart_term2_overview": 1,
+            "mart_data_quality": 11
+          },
+          "marts_built": 4
+        },
+        "error_message": null
+      },
+      {
+        "name": "contracts",
+        "status": "success",
+        "started_at": "2026-06-23 13:07:41.867000",
+        "finished_at": "2026-06-23 13:07:42.173000",
+        "duration_seconds": 0.306,
+        "metrics": {
+          "contract_checks_run": 58,
+          "contract_failures": 0,
+          "errors": []
+        },
+        "error_message": null
+      }
+    ],
+    "metrics": {
+      "records_generated": 12246,
+      "records_loaded": 12246,
+      "clean_records": 12242,
+      "quality_issues_found": 80,
+      "quarantine_records": 80,
+      "marts_built": 4,
+      "mart_rows": 62,
+      "contract_checks_run": 58,
+      "contract_failures": 0
+    },
+    "error_message": null
+  }
+]

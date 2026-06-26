@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -8,10 +9,7 @@ import plotly.express as px
 import streamlit as st
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
-
-from src.db import get_database
+DASHBOARD_DATA = PROJECT_ROOT / "data" / "dashboard"
 
 
 st.set_page_config(
@@ -31,10 +29,14 @@ RISK_COLORS = {
 }
 
 
-@st.cache_data(ttl=60)
+@st.cache_data
 def load_collection(name: str) -> pd.DataFrame:
-    db = get_database()
-    rows = list(db[name].find({}, {"_id": 0}))
+    """Load a collection from pre-exported static JSON files."""
+    filepath = DASHBOARD_DATA / f"{name}.json"
+    if not filepath.exists():
+        return pd.DataFrame()
+    with open(filepath, "r") as f:
+        rows = json.load(f)
     return pd.DataFrame(rows)
 
 
@@ -71,6 +73,7 @@ school_df = load_collection("mart_school_performance")
 regional_df = load_collection("mart_regional_summary")
 overview_df = load_collection("mart_term2_overview")
 quality_df = load_collection("mart_data_quality")
+
 
 if page == "Executive Overview":
     st.title("Executive Overview")
