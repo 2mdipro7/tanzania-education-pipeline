@@ -7,4 +7,3 @@ __pycache__/
 .env.local
 *.log
 data/generated/*.json
-screenshots/*.png
