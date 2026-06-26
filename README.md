@@ -1,10 +1,11 @@
 # 🌍 Mewaka Program Metrics — End-to-End Education Data Pipeline
 
+🔗 **[View Live Dashboard →](https://tanzania-education-pipeline-vmpnvhngvqdisvuz3kcc9d.streamlit.app)**
+
 > **Status:** Live | Pipeline Passing | 0 Contract Failures
 
 A production-grade data engineering pipeline built for a fictional education program in Tanzania. This project simulates the full operational data stack of an NGO — from raw field data collection through to a live analytics dashboard — showcasing MongoDB data architecture, idempotent ETL design, modular validation, and real-time observability.
 
----
 
 ## 📌 Project Description
 
@@ -14,7 +15,6 @@ I designed and built a Python + MongoDB ETL pipeline that ingests synthetic fiel
 
 The pipeline processes **12,246 records across 14 entity types**, runs **58 contract checks** on every execution, and catches and quarantines data quality issues automatically — with zero failures in the latest run.
 
----
 
 ## 1. The Problem
 
@@ -27,25 +27,47 @@ Education NGOs operating at scale face a data trust problem. Field staff collect
 
 The result: program managers make decisions on data they can't fully trust.
 
----
 
 ## 2. The Solution I Built
 
 I built a layered ETL pipeline that treats data quality as a first-class concern at every stage — not an afterthought.
 
-```text
-Synthetic Field Data
-  → Raw MongoDB Collections    (idempotent upserts + change tracking)
-  → Validation Layer           (per-entity modular validators + quarantine)
-  → Clean MongoDB Collections  (referentially valid, normalized records)
-  → Analytics Mart Layer       (aggregated, dashboard-ready collections)
-  → Contract Tests             (automated schema + range checks on every run)
-  → Streamlit Dashboard        (executive metrics, school maps, pipeline monitor)
+```mermaid
+flowchart TD
+    subgraph Source
+        A[Synthetic Field Data]
+    end
+    
+    subgraph Ingestion Layer
+        B[(Raw MongoDB Collections)]
+    end
+    
+    subgraph Quality Layer
+        C{Modular Validator Engine}
+        D[Quarantine Collections]
+    end
+    
+    subgraph Analytics Layer
+        E[(Clean Collections)]
+        F[(Mart Collections)]
+    end
+    
+    subgraph Serving Layer
+        G[Streamlit Dashboard]
+        H[Contract Tests]
+    end
+
+    A -- Idempotent Upsert --> B
+    B -- Validation Rules --> C
+    C -- Invalid --> D
+    C -- Valid --> E
+    E -- Aggregations --> F
+    F --> G
+    F --> H
 ```
 
 Every pipeline run is fully **idempotent**: re-running it on the same data detects unchanged records and skips them, updates modified ones, and only inserts genuinely new records. The dashboard includes a **Pipeline Monitor** page that exposes exactly what happened in each run — records inserted vs. updated vs. unchanged, step durations, quality issues caught, and contract results.
 
----
 
 ## 3. Technical Architecture
 
@@ -134,7 +156,6 @@ Before the pipeline marks itself as successful, it runs **58 automated contract 
 - Rate fields fall within `[0, 1]`
 - GeoJSON `location` fields conform to the correct Point schema
 
----
 
 ## 4. Dashboard
 
@@ -150,7 +171,6 @@ The Streamlit dashboard provides six analytical views:
 | **Data Quality Monitor** | Issue breakdown by collection, severity, and type |
 | **Pipeline Monitor** | Latest run metadata, step durations, batch change statistics |
 
----
 
 ## 5. Synthetic Data Design
 
@@ -163,7 +183,6 @@ The data generator produces realistic field-program data — not toy examples. K
 - **Assessment structure**: Total score plus sub-scores for business skills, financial literacy, communication, and problem solving
 - **Intervention tracking**: Low-attendance flags trigger simulated intervention records with priority, due date, and outcome
 
----
 
 ## 6. Stack
 
@@ -178,7 +197,6 @@ The data generator produces realistic field-program data — not toy examples. K
 | Infrastructure | Docker Compose |
 | Dependency pinning | `requirements-lock.txt` |
 
----
 
 ## 7. How to Run
 
@@ -216,7 +234,6 @@ streamlit run src/dashboard/app.py
 
 **Mongo Express UI:** [http://localhost:8081](http://localhost:8081)
 
----
 
 ## 8. Running Individual Pipeline Steps
 
@@ -229,7 +246,6 @@ python -m src.pipeline transform   # Build mart collections
 python -m src.pipeline contracts   # Run automated contract checks
 ```
 
----
 
 ## 9. Latest Verified Run
 
@@ -257,7 +273,6 @@ transform:  ~0.7s
 contracts:  ~0.4s
 ```
 
----
 
 ## 10. Configuration
 
@@ -270,7 +285,6 @@ MONGO_DB=mewaka_program_metrics
 
 To use MongoDB Atlas, replace `MONGO_URI` with your Atlas connection string. **Do not commit real credentials.**
 
----
 
 ## 11. Project Structure
 
@@ -321,16 +335,7 @@ tests/
   test_validation_rules.py
 ```
 
----
 
-## 12. Live Dashboard
 
-The dashboard is deployed on Streamlit Community Cloud with pre-exported pipeline data — no database connection required.
-
-🔗 **[View Live Dashboard →](https://tanzania-education-pipeline-vmpnvhngvqdisvuz3kcc9d.streamlit.app)**
-
-> *The live version uses static data snapshots from the latest successful pipeline run. For local development with a live MongoDB connection, see section 7.*
-
----
 
 *Data note: This project uses entirely synthetic data generated with Faker and custom simulation logic. No real student or school records are used. The program, school names, and geography are fictional.*
